@@ -4,11 +4,13 @@ import java.util.Random;
 import java.util.concurrent.CountDownLatch;
 
 public class CountDownLatchDemo {
-    public static void main(String[] args) {
+    public static void main(String[] args) throws InterruptedException {
         CountDownLatch latch = new CountDownLatch(4);
         for(int i=0;i<latch.getCount();i++){
-            new Thread(new MyThread(latch),i+"玩家");
+            new Thread(new MyThread(latch),i+"玩家").start();
         }
+        latch.await();
+        System.out.println("hahah");
     }
 
     private static class MyThread implements Runnable{
